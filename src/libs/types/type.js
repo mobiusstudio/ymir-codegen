@@ -1,58 +1,63 @@
 class Type {
   constructor({
-    string,
+    str,
     def,
-    required,
-    separate = ' ',
+    req,
+    sep = ' ',
   }) {
-    this.self = string
-    this.def = def.replace(/#/, '#defaultValue#')
-    this.req = required
-    this.sep = separate
+    this.ori = str
+    this.str = str
+    this.def = def
+    this.req = req
+    this.sep = sep
   }
 
   default = () => {
-    this.self = [this.self, this.def].join(this.sep)
+    this.str = [this.str, this.def].join(this.sep)
     return this
   }
 
   required = () => {
-    this.self = [this.self, this.req].join(this.sep)
+    this.str = [this.str, this.req].join(this.sep)
     return this
   }
 
-  tostring = () => this.self
+  tostring = () => {
+    const { str } = this
+    this.str = this.ori
+    return str
+  }
 }
 
 export class Sql extends Type {
-  constructor(string) {
+  constructor(str) {
     super({
-      string,
-      def: 'DEFAULT #',
-      required: 'NOT NULL',
-      separate: ' ',
+      str,
+      def: 'DEFAULT #defaultValue#',
+      req: 'NOT NULL',
+      sep: ' ',
     })
   }
 }
 
 export class Joi extends Type {
-  constructor(string) {
+  constructor(str) {
     super({
-      string,
-      def: 'default(#)',
-      required: 'required()',
-      separate: '.',
+      str,
+      def: 'default(#defaultValue#)',
+      req: 'required()',
+      sep: '.',
     })
   }
 }
 
 export class Swg extends Type {
-  constructor(string) {
+  constructor(str) {
     super({
-      string,
-      def: 'default: #',
-      required: 'required: true',
-      separate: ',\n',
+      str,
+      def: 'default: #defaultValue#',
+      req: 'required: true',
+      sep: ',\n',
     })
   }
 }
