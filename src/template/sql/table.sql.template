@@ -1,0 +1,14 @@
+--------------------------------
+-- #tableName# notes:
+--------------------------------
+
+CREATE TABLE "#schemaName#".#tableName#
+(
+  #pkeyCode#
+  #columnCode#
+  #timeCode#
+  PRIMARY KEY (#pkeyName#)
+)
+WITH (
+  OIDS=FALSE
+);
