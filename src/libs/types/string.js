@@ -1,6 +1,6 @@
-import { Sql, Joi, Swg } from './type'
+import { Sql, Joi, Swg } from './base'
 
-export default {
+export const string = {
   default: {
     sql: new Sql('varchar'),
     joi: new Joi('Joi.string()'),

@@ -1,9 +1,7 @@
-import { Sql, Joi, Swg } from './type'
+import { Sql, Joi, Swg } from './base'
 
-const boolean = {
+export const boolean = {
   sql: new Sql('boolean'),
   joi: new Joi('Joi.boolean()'),
   swg: new Swg('type: boolean'),
 }
-
-export default boolean
