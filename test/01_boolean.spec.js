@@ -1,15 +1,14 @@
 import { check } from './utils/check'
 
 describe('========== Boolean ==========', () => {
-  const p = 'boolean'
   it('default', () => {
     check({
+      t: 'boolean',
       str: {
         sql: 'boolean',
         joi: 'Joi.boolean()',
         swg: 'type: \'boolean\'',
       },
-      p,
     })
   })
 })
