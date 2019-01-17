@@ -11,7 +11,7 @@ describe('========== Number ==========', () => {
       },
     })
   })
-  it('default', () => {
+  it('int', () => {
     check({
       t: 'int',
       str: {
