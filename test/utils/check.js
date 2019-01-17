@@ -1,15 +1,6 @@
-import { types } from '../../src/libs/types'
+import { typeMap as T } from '../../src/libs/types'
 import { resMap, outputMap } from '../libs/type'
 import { tostring } from './tostring'
-
-const typeMap = new Map()
-
-Object.keys(types).forEach((p) => {
-  Object.keys(types[p]).forEach((s) => {
-    if (s === 'default') typeMap.set(p, types[p].default)
-    else typeMap.set(s, types[p][s])
-  })
-})
 
 export const check = ({
   t = '',
@@ -23,10 +14,10 @@ export const check = ({
     dnr: {},
   }
   outputMap.forEach((o) => {
-    res.dir[o] = typeMap.get(t)[o].tostring()
-    res.def[o] = typeMap.get(t)[o].default().tostring()
-    res.req[o] = typeMap.get(t)[o].required().tostring()
-    res.dnr[o] = typeMap.get(t)[o].default().required().tostring()
+    res.dir[o] = T.get(t)[o]().tostring()
+    res.def[o] = T.get(t)[o]().default().tostring()
+    res.req[o] = T.get(t)[o]().required().tostring()
+    res.dnr[o] = T.get(t)[o]().default().required().tostring()
   })
   resMap.forEach((r) => {
     outputMap.forEach((o) => {

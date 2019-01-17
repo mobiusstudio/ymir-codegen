@@ -5,14 +5,14 @@ class Type {
     req,
     sep = ' ',
   }) {
-    this.ori = str
     this.str = str
     this.def = def
     this.req = req
     this.sep = sep
   }
 
-  default = () => {
+  default = (defaultValue) => {
+    if (typeof defaultValue === 'string') this.def = this.def.replace('#defaultValue#', defaultValue)
     this.str = [this.str, this.def].join(this.sep)
     return this
   }
@@ -22,10 +22,9 @@ class Type {
     return this
   }
 
-  tostring = () => {
-    const { str } = this
-    this.str = this.ori
-    return str
+  tostring = (filter = null) => {
+    if (typeof filter === 'function') this.str = filter(this.str)
+    return this.str
   }
 }
 
