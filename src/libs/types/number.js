@@ -61,4 +61,10 @@ export const number = {
     joi: new Joi('Joi.number().precision(2)'),
     swg: new Swg(`type: 'number',\nformat: 'double'`),
   },
+
+  timestamp: {
+    sql: new Sql('timestamp'),
+    joi: new Joi('Joi.date().timestamp()'),
+    swg: new Swg(`type: 'integer',\nformat: 'int64'`),
+  },
 }

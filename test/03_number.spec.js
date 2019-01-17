@@ -101,4 +101,14 @@ describe('========== Number ==========', () => {
       },
     })
   })
+  it('timestamp', () => {
+    check({
+      t: 'timestamp',
+      str: {
+        sql: 'timestamp',
+        joi: 'Joi.date().timestamp()',
+        swg: 'type: \'integer\',\nformat: \'int64\'',
+      },
+    })
+  })
 })
