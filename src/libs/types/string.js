@@ -3,32 +3,32 @@ import { Sql, Joi, Swg } from './base'
 
 export const string = {
   default: {
-    sql: () => new Sql('varchar'),
-    joi: () => new Joi('Joi.string()'),
-    swg: () => new Swg(`type: 'string'`),
+    sql: ({ req, def }) => new Sql('varchar').tostring({ req, def }),
+    joi: ({ req, def }) => new Joi('Joi.string()').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'string'`).tostring({ req, def }),
   },
 
-  maxmin: {
-    sql: () => new Sql('varchar(#maxValue#)'),
-    joi: () => new Joi('Joi.string().max(#maxValue#).min(#minValue#)'),
-    swg: () => new Swg(`type: 'string',\nmaxLength: #maxValue#,\nminLength: #minValue#`),
-  },
+  // maxmin: {
+  //   sql: ({ req, def, max }) => new Sql(`varchar(${max})`).tostring({ req, def }),
+  //   joi: ({ req, def, max, min }) => new Joi(`Joi.string().max(${max}).min(${min})`).tostring({ req, def }),
+  //   swg: ({ req, def, max, min }) => new Swg(`type: 'string',\nmaxLength: ${max},\nminLength: ${min}`).tostring({ req, def }),
+  // },
 
-  pattern: {
-    sql: () => new Sql('varchar'),
-    joi: () => new Joi('Joi.string().regex(/#patternValue#/)'),
-    swg: () => new Swg(`type: 'string',\npattern: '#patternValue#'`),
-  },
+  // pattern: {
+  //   sql: ({ req, def }) => new Sql('varchar').tostring({ req, def }),
+  //   joi: ({ req, def, pattern }) => new Joi(`Joi.string().regex(/${pattern}/)`).tostring({ req, def }),
+  //   swg: ({ req, def, pattern }) => new Swg(`type: 'string',\npattern: '${pattern}'`).tostring({ req, def }),
+  // },
 
   password: {
-    sql: () => new Sql('varchar'),
-    joi: () => new Joi('Joi.string().min(6)'),
-    swg: () => new Swg(`type: 'string',\nminLength: 6`),
+    sql: ({ req, def }) => new Sql('varchar').tostring({ req, def }),
+    joi: ({ req, def }) => new Joi('Joi.string().min(6)').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'string',\nminLength: 6`).tostring({ req, def }),
   },
 
   email: {
-    sql: () => new Sql('varchar'),
-    joi: () => new Joi('Joi.string().email()'),
-    swg: () => new Swg(`type: 'string',\nformat: 'email'`),
+    sql: ({ req, def }) => new Sql('varchar').tostring({ req, def }),
+    joi: ({ req, def }) => new Joi('Joi.string().email()').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'string',\nformat: 'email'`).tostring({ req, def }),
   },
 }

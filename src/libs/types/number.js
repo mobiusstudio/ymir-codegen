@@ -3,68 +3,68 @@ import { Sql, Joi, Swg } from './base'
 
 export const number = {
   default: {
-    sql: () => new Sql('double precision'),
-    joi: () => new Joi('Joi.number()'),
-    swg: () => new Swg(`type: 'number'`),
+    sql: ({ req, def }) => new Sql('double precision').tostring({ req, def }),
+    joi: ({ req, def }) => new Joi('Joi.number()').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'number'`).tostring({ req, def }),
   },
 
   int: {
-    sql: () => new Sql('integer'),
-    joi: () => new Joi('Joi.number().integer()'),
-    swg: () => new Swg(`type: 'integer',\nformat: 'int32'`),
+    sql: ({ req, def }) => new Sql('integer').tostring({ req, def }),
+    joi: ({ req, def }) => new Joi('Joi.number().integer()').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'integer',\nformat: 'int32'`).tostring({ req, def }),
   },
 
   bigint: {
-    sql: () => new Sql('bigint'),
-    joi: () => new Joi('Joi.number().integer()'),
-    swg: () => new Swg(`type: 'integer',\nformat: 'int64'`),
+    sql: ({ req, def }) => new Sql('bigint').tostring({ req, def }),
+    joi: ({ req, def }) => new Joi('Joi.number().integer()').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'integer',\nformat: 'int64'`).tostring({ req, def }),
   },
 
   float: {
-    sql: () => new Sql('real'),
-    joi: () => new Joi('Joi.number().precision()'),
-    swg: () => new Swg(`type: 'number',\nformat: 'float'`),
+    sql: ({ req, def }) => new Sql('real').tostring({ req, def }),
+    joi: ({ req, def }) => new Joi('Joi.number().precision()').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'number',\nformat: 'float'`).tostring({ req, def }),
   },
 
   double: {
-    sql: () => new Sql('double precision'),
-    joi: () => new Joi('Joi.number().precision()'),
-    swg: () => new Swg(`type: 'number',\nformat: 'double'`),
+    sql: ({ req, def }) => new Sql('double precision').tostring({ req, def }),
+    joi: ({ req, def }) => new Joi('Joi.number().precision()').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'number',\nformat: 'double'`).tostring({ req, def }),
   },
 
-  numeric: {
-    sql: () => new Sql('numeric#numericParameters#'),
-    joi: () => new Joi('Joi.number().precision(#scaleValue#)'),
-    swg: () => new Swg(`type: 'number',\nformat: 'double'`),
-  },
+  // numeric: {
+  //   sql: ({ req, def }) => new Sql('numeric#numericParameters#').tostring({ req, def }),
+  //   joi: ({ req, def }) => new Joi('Joi.number().precision(#scaleValue#)').tostring({ req, def }),
+  //   swg: ({ req, def }) => new Swg(`type: 'number',\nformat: 'double'`).tostring({ req, def }),
+  // },
 
   id: {
-    sql: () => new Sql('bigint'),
-    joi: () => new Joi('Joi.number().integer().greater(100000000000000)'),
-    swg: () => new Swg(`type: 'integer',\nformat: 'int64'`),
+    sql: ({ req, def }) => new Sql('bigint').tostring({ req, def }),
+    joi: ({ req, def }) => new Joi('Joi.number().integer().greater(100000000000000)').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'integer',\nformat: 'int64'`).tostring({ req, def }),
   },
 
   'id-auto': {
-    sql: () => new Sql('bigint NOT NULL DEFAULT "#schemaName#".#schemaName#_id()'),
-    joi: () => new Joi('Joi.number().integer().greater(100000000000000)'),
-    swg: () => new Swg(`type: 'integer',\nformat: 'int64'`),
+    sql: schemaName => new Sql('bigint').tostring({ req: true, def: `"${schemaName}".${schemaName}_id()` }),
+    joi: ({ req, def }) => new Joi('Joi.number().integer().greater(100000000000000)').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'integer',\nformat: 'int64'`).tostring({ req, def }),
   },
 
   'id-seq': {
-    sql: () => new Sql('serial'),
-    joi: () => new Joi('Joi.number().integer()'),
-    swg: () => new Swg(`type: 'integer',\nformat: 'int32'`),
+    sql: () => new Sql('serial').tostring({ req: false, def: null }),
+    joi: ({ req, def }) => new Joi('Joi.number().integer()').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'integer',\nformat: 'int32'`).tostring({ req, def }),
   },
 
   money: {
-    sql: () => new Sql('money'),
-    joi: () => new Joi('Joi.number().precision(2)'),
-    swg: () => new Swg(`type: 'number',\nformat: 'double'`),
+    sql: ({ req, def }) => new Sql('money').tostring({ req, def }),
+    joi: ({ req, def }) => new Joi('Joi.number().precision(2)').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'number',\nformat: 'double'`).tostring({ req, def }),
   },
 
   timestamp: {
-    sql: () => new Sql('timestamp'),
-    joi: () => new Joi('Joi.date().timestamp()'),
-    swg: () => new Swg(`type: 'integer',\nformat: 'int64'`),
+    sql: ({ req, def }) => new Sql('timestamp').tostring({ req, def }),
+    joi: ({ req, def }) => new Joi('Joi.date().timestamp()').tostring({ req, def }),
+    swg: ({ req, def }) => new Swg(`type: 'integer',\nformat: 'int64'`).tostring({ req, def }),
   },
 }

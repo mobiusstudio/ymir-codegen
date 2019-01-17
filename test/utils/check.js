@@ -14,14 +14,30 @@ export const check = ({
     dnr: {},
   }
   outputMap.forEach((o) => {
-    res.dir[o] = T.get(t)[o]().tostring()
-    res.def[o] = T.get(t)[o]().default().tostring()
-    res.req[o] = T.get(t)[o]().required().tostring()
-    res.dnr[o] = T.get(t)[o]().default().required().tostring()
+    if (o !== 'sql' || (t !== 'id-auto' && t !== 'id-seq')) {
+      res.dir[o] = T.get(t)[o]({
+        req: false,
+        def: null,
+      })
+      res.def[o] = T.get(t)[o]({
+        req: false,
+        def: '#defaultValue#',
+      })
+      res.req[o] = T.get(t)[o]({
+        req: true,
+        def: null,
+      })
+      res.dnr[o] = T.get(t)[o]({
+        req: true,
+        def: '#defaultValue#',
+      })
+    }
   })
   resMap.forEach((r) => {
     outputMap.forEach((o) => {
-      res[r][o].should.equal(strings[r][o])
+      if (strings[r][o]) {
+        res[r][o].should.equal(strings[r][o])
+      }
     })
   })
 }

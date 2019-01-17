@@ -11,26 +11,26 @@ describe('========== String ==========', () => {
       },
     })
   })
-  it('maxmin', () => {
-    check({
-      t: 'maxmin',
-      str: {
-        sql: 'varchar(#maxValue#)',
-        joi: 'Joi.string().max(#maxValue#).min(#minValue#)',
-        swg: 'type: \'string\',\nmaxLength: #maxValue#,\nminLength: #minValue#',
-      },
-    })
-  })
-  it('pattern', () => {
-    check({
-      t: 'pattern',
-      str: {
-        sql: 'varchar',
-        joi: 'Joi.string().regex(/#patternValue#/)',
-        swg: 'type: \'string\',\npattern: \'#patternValue#\'',
-      },
-    })
-  })
+  // it('maxmin', () => {
+  //   check({
+  //     t: 'maxmin',
+  //     str: {
+  //       sql: 'varchar(#maxValue#)',
+  //       joi: 'Joi.string().max(#maxValue#).min(#minValue#)',
+  //       swg: 'type: \'string\',\nmaxLength: #maxValue#,\nminLength: #minValue#',
+  //     },
+  //   })
+  // })
+  // it('pattern', () => {
+  //   check({
+  //     t: 'pattern',
+  //     str: {
+  //       sql: 'varchar',
+  //       joi: 'Joi.string().regex(/#patternValue#/)',
+  //       swg: 'type: \'string\',\npattern: \'#patternValue#\'',
+  //     },
+  //   })
+  // })
   it('password', () => {
     check({
       t: 'password',

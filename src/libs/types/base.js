@@ -11,19 +11,17 @@ class Type {
     this.sep = sep
   }
 
-  default = (defaultValue) => {
-    if (typeof defaultValue === 'string') this.def = this.def.replace('#defaultValue#', defaultValue)
-    this.str = [this.str, this.def].join(this.sep)
-    return this
+  default = (value) => {
+    this.str = [this.str, this.def.replace('#defaultValue#', value)].join(this.sep)
   }
 
   required = () => {
     this.str = [this.str, this.req].join(this.sep)
-    return this
   }
 
-  tostring = (filter = null) => {
-    if (typeof filter === 'function') this.str = filter(this.str)
+  tostring = ({ req, def }) => {
+    if (req === true || req === 'true' || req === 1) this.required()
+    if (def && typeof def === 'string') this.default(def)
     return this.str
   }
 }

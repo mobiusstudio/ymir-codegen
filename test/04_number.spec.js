@@ -1,3 +1,4 @@
+import { typeMap as T } from '../src/libs/types'
 import { check } from './utils/check'
 
 describe('========== Number ==========', () => {
@@ -51,16 +52,16 @@ describe('========== Number ==========', () => {
       },
     })
   })
-  it('numeric', () => {
-    check({
-      t: 'numeric',
-      str: {
-        sql: 'numeric#numericParameters#',
-        joi: 'Joi.number().precision(#scaleValue#)',
-        swg: 'type: \'number\',\nformat: \'double\'',
-      },
-    })
-  })
+  // it('numeric', () => {
+  //   check({
+  //     t: 'numeric',
+  //     str: {
+  //       sql: 'numeric#numericParameters#',
+  //       joi: 'Joi.number().precision(#scaleValue#)',
+  //       swg: 'type: \'number\',\nformat: \'double\'',
+  //     },
+  //   })
+  // })
   it('id', () => {
     check({
       t: 'id',
@@ -75,21 +76,21 @@ describe('========== Number ==========', () => {
     check({
       t: 'id-auto',
       str: {
-        sql: 'bigint NOT NULL DEFAULT "#schemaName#".#schemaName#_id()',
         joi: 'Joi.number().integer().greater(100000000000000)',
         swg: 'type: \'integer\',\nformat: \'int64\'',
       },
     })
+    T.get('id-auto').sql('schemaName').should.equal('bigint NOT NULL DEFAULT "schemaName".schemaName_id()')
   })
   it('id-seq', () => {
     check({
       t: 'id-seq',
       str: {
-        sql: 'serial',
         joi: 'Joi.number().integer()',
         swg: 'type: \'integer\',\nformat: \'int32\'',
       },
     })
+    T.get('id-seq').sql().should.equal('serial')
   })
   it('money', () => {
     check({
