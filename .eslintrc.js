@@ -20,5 +20,6 @@ module.exports = {
     'no-tabs': ['off'],
     'import/prefer-default-export': ['off'],
     'object-curly-newline': ['off'],
+    'newline-per-chained-call': 'off',
   },
 }
