@@ -46,8 +46,8 @@ export const number = {
 
   'id-seq': {
     sql: new Sql('serial'),
-    joi: new Joi('Joi.number().integer().greater(100000000000000)'),
-    swg: new Swg(`type: 'integer',\nformat: 'int64'`),
+    joi: new Joi('Joi.number().integer()'),
+    swg: new Swg(`type: 'integer',\nformat: 'int32'`),
   },
 
   money: {
