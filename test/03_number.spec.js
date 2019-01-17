@@ -5,6 +5,16 @@ describe('========== Number ==========', () => {
     check({
       t: 'number',
       str: {
+        sql: 'double precision',
+        joi: 'Joi.number()',
+        swg: 'type: \'number\'',
+      },
+    })
+  })
+  it('default', () => {
+    check({
+      t: 'int',
+      str: {
         sql: 'integer',
         joi: 'Joi.number().integer()',
         swg: 'type: \'integer\',\nformat: \'int32\'',

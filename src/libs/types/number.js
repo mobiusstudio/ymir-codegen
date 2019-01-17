@@ -3,6 +3,12 @@ import { Sql, Joi, Swg } from './base'
 
 export const number = {
   default: {
+    sql: new Sql('double precision'),
+    joi: new Joi('Joi.number()'),
+    swg: new Swg(`type: 'number'`),
+  },
+
+  int: {
     sql: new Sql('integer'),
     joi: new Joi('Joi.number().integer()'),
     swg: new Swg(`type: 'integer',\nformat: 'int32'`),
