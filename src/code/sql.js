@@ -96,7 +96,7 @@ const tablesCode = (tables) => {
   return arr.join('\n')
 }
 
-const schemaCode = (schema) => {
+export const schemaCode = (schema) => {
   const { schemaName, tables } = schema
   const template = fs.readFileSync(path.join(__dirname, '../template/sql/schema.template'), 'utf8')
   return template.replace(/#schemaName#/g, schemaName).replace(/#tablesCode#/g, tablesCode(tables))
