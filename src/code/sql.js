@@ -1,8 +1,7 @@
-import fs from 'fs'
-import path from 'path'
 import { snakeCase } from 'lodash'
 import { typeMap as T } from '../libs/types'
 import { writeFile } from '../utils'
+import { template } from '../template/sql.template'
 
 const snakeCaseAll = (schemaList) => {
   const newList = schemaList.map((schema) => {
@@ -79,8 +78,7 @@ const columnsCode = (columns) => {
 const tableCode = (table) => {
   const { schemaName, tableName, pkeyIndex, columns } = table
   const pkey = columns.splice(pkeyIndex, 1)[0]
-  const template = fs.readFileSync(path.join(__dirname, '../template/sql/table.template'), 'utf8')
-  return template.replace(/#schemaName#/g, schemaName)
+  return template.table.replace(/#schemaName#/g, schemaName)
     .replace(/#tableName#/g, tableName)
     .replace(/#pkeyCode#/g, pkeyCode(pkey))
     .replace(/#columnsCode#/g, columnsCode(columns))
@@ -98,8 +96,7 @@ const tablesCode = (tables) => {
 
 export const schemaCode = (schema) => {
   const { schemaName, tables } = schema
-  const template = fs.readFileSync(path.join(__dirname, '../template/sql/schema.template'), 'utf8')
-  return template.replace(/#schemaName#/g, schemaName).replace(/#tablesCode#/g, tablesCode(tables))
+  return template.schema.replace(/#schemaName#/g, schemaName).replace(/#tablesCode#/g, tablesCode(tables))
 }
 
 export const generateSql = ({ schemaList, outDir, filename = null }) => {

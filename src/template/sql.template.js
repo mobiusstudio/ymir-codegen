@@ -1,4 +1,8 @@
---------------------------------
+/* eslint-disable operator-linebreak */
+export const template = {}
+
+template.schema =
+`--------------------------------
 -- #schemaName# schema and tables
 --------------------------------
 
@@ -27,4 +31,21 @@ result := result |
 END;
 $$ LANGUAGE PLPGSQL;
 
-#tablesCode#
+#tablesCode#`
+
+template.table =
+`--------------------------------
+-- #tableName# notes:
+--------------------------------
+
+CREATE TABLE "#schemaName#".#tableName#
+(
+  #pkeyCode#
+  #columnsCode#
+  #timeCode#
+  PRIMARY KEY (#pkeyName#)
+)
+WITH (
+  OIDS=FALSE
+);
+`
