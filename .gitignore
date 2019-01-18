@@ -1,4 +1,5 @@
 # Customize
+output/
 ymir.config.json
 *.DS_Store
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx babel-node src/bin/build.js",
+    "build": "npx babel-node bin/build",
     "test": "NODE_ENV=test mocha --require @babel/register"
   },
   "dependencies": {

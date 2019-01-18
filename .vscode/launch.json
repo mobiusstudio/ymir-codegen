@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/src/build/sql.js"
+      "program": "${workspaceFolder}/src/code/sql.js"
     }
   ]
 }
