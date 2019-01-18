@@ -5,7 +5,7 @@
 CREATE TABLE "#schemaName#".#tableName#
 (
   #pkeyCode#
-  #columnCode#
+  #columnsCode#
   #timeCode#
   PRIMARY KEY (#pkeyName#)
 )

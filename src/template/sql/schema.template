@@ -26,3 +26,5 @@ result := result |
 (seq_id);
 END;
 $$ LANGUAGE PLPGSQL;
+
+#tablesCode#
