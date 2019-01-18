@@ -31,7 +31,8 @@ result := result |
 END;
 $$ LANGUAGE PLPGSQL;
 
-#tablesCode#`
+#tablesCode#
+`
 
 template.table =
 `--------------------------------
@@ -47,5 +48,4 @@ CREATE TABLE "#schemaName#".#tableName#
 )
 WITH (
   OIDS=FALSE
-);
-`
+);`

@@ -1,7 +1,7 @@
 import { snakeCase } from 'lodash'
 import { typeMap as T } from '../libs/types'
-import { writeFile } from '../utils'
 import { template } from '../template/sql.template'
+import { generate } from '../utils'
 
 const snakeCaseAll = (schemaList) => {
   const newList = schemaList.map((schema) => {
@@ -91,7 +91,7 @@ const tablesCode = (tables) => {
   tables.forEach((table) => {
     arr.push(tableCode(table))
   })
-  return arr.join('\n')
+  return arr.join('\n\n')
 }
 
 export const schemaCode = (schema) => {
@@ -99,13 +99,4 @@ export const schemaCode = (schema) => {
   return template.schema.replace(/#schemaName#/g, schemaName).replace(/#tablesCode#/g, tablesCode(tables))
 }
 
-export const generateSql = ({ schemaList, outDir, filename = null }) => {
-  snakeCaseAll(schemaList).forEach((schema, index) => {
-    const name = `${filename ? `${filename}_${index}` : schema.schemaName}.sql`
-    writeFile({
-      buffer: schemaCode(schema),
-      path: outDir,
-      filename: name,
-    })
-  })
-}
+export const generateSql = ({ schemaList, outDir }) => (generate({ suffix: '.sql', outDir, schemaList: snakeCaseAll(schemaList), schemaCode }))
