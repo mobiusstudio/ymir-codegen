@@ -1,10 +1,10 @@
-import { outputMap, resMap, attributes } from '../libs/type'
+import { outputSet, resSet, attributes } from '../libs/type'
 
 export const tostring = (str) => {
   const strings = {}
-  resMap.forEach((r) => {
+  resSet.forEach((r) => {
     strings[r] = {}
-    outputMap.forEach((o) => {
+    outputSet.forEach((o) => {
       if (str[o]) {
         const c = attributes[o]
         switch (r) {

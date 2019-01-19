@@ -1,11 +1,13 @@
 import { boolean } from './boolean'
 import { string } from './string'
 import { number } from './number'
+import { id } from './id'
 
 export const types = {
   boolean,
   string,
   number,
+  id,
 }
 
 export const typeMap = new Map()

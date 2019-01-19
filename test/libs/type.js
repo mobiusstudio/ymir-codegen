@@ -1,6 +1,8 @@
-export const outputMap = ['sql', 'joi', 'swg']
+export const outputSet = new Set(['sql', 'joi', 'swg'])
 
-export const resMap = ['dir', 'def', 'req', 'dnr']
+export const resSet = new Set(['dir', 'def', 'req', 'dnr'])
+
+export const specSet = new Set(['id-auto', 'id-seq'])
 
 export const attributes = {
   sql: {

@@ -35,6 +35,10 @@ export class Sql extends Type {
       sep: ' ',
     })
   }
+
+  static autoId = schemaName => new Sql('bigint').tostring({ req: true, def: `"${schemaName}".${schemaName}_id()` })
+
+  static seqId = () => new Sql('serial').tostring({ req: false, def: null })
 }
 
 export class Joi extends Type {
