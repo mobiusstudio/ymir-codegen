@@ -1,33 +1,31 @@
-import { snakeCase } from 'lodash'
+import { snakeCase, without, cloneDeep } from 'lodash'
 import { typeMap as T } from '../libs/types'
 import { template } from '../template/sql.template'
 import { generate } from '../utils'
 
-const snakeCaseAll = (schemaList) => {
-  const newList = schemaList.map((schema) => {
-    const newSchema = schema
-    const { schemaName, tables } = newSchema
-    newSchema.schemaName = snakeCase(schemaName)
-    newSchema.tables = tables.map((table) => {
-      const newTable = table
-      const { tableName, columns } = newTable
-      newTable.schemaName = snakeCase(schemaName)
-      newTable.tableName = snakeCase(tableName)
-      newTable.columns = columns.map((column) => {
-        const newColumn = column
-        const { name } = newColumn
-        newColumn.schemaName = snakeCase(schemaName)
-        newColumn.tableName = snakeCase(tableName)
-        newColumn.name = snakeCase(name)
-        return newColumn
-      })
-      return newTable
+const snakeCaseSchema = (schema) => {
+  const tempSchema = cloneDeep(schema)
+  const { schemaName, tables } = tempSchema
+  tempSchema.schemaName = snakeCase(schemaName)
+  tempSchema.tables = tables.map((table) => {
+    const tempTable = table
+    const { tableName, columns } = tempTable
+    tempTable.schemaName = snakeCase(schemaName)
+    tempTable.tableName = snakeCase(tableName)
+    tempTable.columns = columns.map((column) => {
+      const tempColumn = column
+      const { name } = tempColumn
+      tempColumn.schemaName = snakeCase(schemaName)
+      tempColumn.tableName = snakeCase(tableName)
+      tempColumn.name = snakeCase(name)
+      return tempColumn
     })
-    return newSchema
+    return tempTable
   })
-  return newList
+  return tempSchema
 }
 
+// const snakeCaseAll = schemaList => schemaList.map(schema => snakeCaseSchema(schema))
 
 const timeCode = (createTime = true, lastUpdateTime = true) => {
   const arr = []
@@ -76,8 +74,9 @@ const columnsCode = (columns) => {
 }
 
 const tableCode = (table) => {
-  const { schemaName, tableName, pkeyIndex, columns } = table
-  const pkey = columns.splice(pkeyIndex, 1)[0]
+  const { schemaName, tableName, pkeyIndex, columns: tempColumns } = table
+  const pkey = tempColumns[pkeyIndex]
+  const columns = without(tempColumns, pkey)
   return template.table.replace(/#schemaName#/g, schemaName)
     .replace(/#tableName#/g, tableName)
     .replace(/#pkeyCode#/g, pkeyCode(pkey))
@@ -95,8 +94,8 @@ const tablesCode = (tables) => {
 }
 
 export const schemaCode = (schema) => {
-  const { schemaName, tables } = schema
+  const { schemaName, tables } = snakeCaseSchema(schema)
   return template.schema.replace(/#schemaName#/g, schemaName).replace(/#tablesCode#/g, tablesCode(tables))
 }
 
-export const generateSql = ({ schemaList, outDir }) => (generate({ suffix: '.sql', outDir, schemaList: snakeCaseAll(schemaList), schemaCode }))
+export const generateSql = ({ schemaList, outDir }) => (generate({ suffix: '.sql', outDir, schemaList, schemaCode }))
