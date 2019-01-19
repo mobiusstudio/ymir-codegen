@@ -13,7 +13,7 @@ export class ColumnBase {
     required = false,
     default: def = null,
   }) {
-    if (joi.validate({
+    const result = joi.validate({
       schemaName,
       tableName,
       type,
@@ -22,7 +22,8 @@ export class ColumnBase {
       foreign,
       required,
       default: def,
-    }, schemaRules.column)) {
+    }, joi.object().keys(schemaRules.column))
+    if (!result.error) {
       this.schemaName = schemaName
       this.tableName = tableName
       this.type = type
@@ -31,6 +32,8 @@ export class ColumnBase {
       this.foreign = foreign
       this.required = required
       this.default = def
+    } else {
+      throw new Error('Invalid column data')
     }
   }
 }
@@ -42,16 +45,19 @@ export class TableBase {
     pkeyIndex = 0,
     columns = [],
   }) {
-    if (joi.validate({
+    const result = joi.validate({
       schemaName,
       tableName,
       pkeyIndex,
       columns,
-    }, schemaRules.table)) {
+    }, joi.object().keys(schemaRules.table))
+    if (!result.error) {
       this.schemaName = schemaName
       this.tableName = tableName
       this.pkeyIndex = pkeyIndex
       this.columns = columns
+    } else {
+      throw new Error('Invalid table data')
     }
   }
 }
@@ -61,12 +67,15 @@ export class SchemaBase {
     schemaName,
     tables = [],
   }) {
-    if (joi.validate({
+    const result = joi.validate({
       schemaName,
       tables,
-    }, schemaRules.schema)) {
+    }, joi.object().keys(schemaRules.schema))
+    if (!result.error) {
       this.schemaName = schemaName
       this.tables = tables
+    } else {
+      throw new Error('Invalid schema data')
     }
   }
 }

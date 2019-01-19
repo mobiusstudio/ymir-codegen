@@ -6,7 +6,7 @@ describe('========== String ==========', () => {
       t: 'string',
       str: {
         sql: 'varchar',
-        joi: 'Joi.string()',
+        joi: 'joi.string()',
         swg: 'type: \'string\'',
       },
     })
@@ -16,7 +16,7 @@ describe('========== String ==========', () => {
   //     t: 'maxmin',
   //     str: {
   //       sql: 'varchar(#maxValue#)',
-  //       joi: 'Joi.string().max(#maxValue#).min(#minValue#)',
+  //       joi: 'joi.string().max(#maxValue#).min(#minValue#)',
   //       swg: 'type: \'string\',\nmaxLength: #maxValue#,\nminLength: #minValue#',
   //     },
   //   })
@@ -26,7 +26,7 @@ describe('========== String ==========', () => {
   //     t: 'pattern',
   //     str: {
   //       sql: 'varchar',
-  //       joi: 'Joi.string().regex(/#patternValue#/)',
+  //       joi: 'joi.string().regex(/#patternValue#/)',
   //       swg: 'type: \'string\',\npattern: \'#patternValue#\'',
   //     },
   //   })
@@ -36,7 +36,7 @@ describe('========== String ==========', () => {
       t: 'password',
       str: {
         sql: 'varchar',
-        joi: 'Joi.string().min(6)',
+        joi: 'joi.string().min(6)',
         swg: 'type: \'string\',\nminLength: 6',
       },
     })
@@ -46,7 +46,7 @@ describe('========== String ==========', () => {
       t: 'email',
       str: {
         sql: 'varchar',
-        joi: 'Joi.string().email()',
+        joi: 'joi.string().email()',
         swg: 'type: \'string\',\nformat: \'email\'',
       },
     })

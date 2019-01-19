@@ -6,7 +6,7 @@ describe('========== Number ==========', () => {
       t: 'number',
       str: {
         sql: 'double precision',
-        joi: 'Joi.number()',
+        joi: 'joi.number()',
         swg: 'type: \'number\'',
       },
     })
@@ -16,7 +16,7 @@ describe('========== Number ==========', () => {
       t: 'int',
       str: {
         sql: 'integer',
-        joi: 'Joi.number().integer()',
+        joi: 'joi.number().integer()',
         swg: 'type: \'integer\',\nformat: \'int32\'',
       },
     })
@@ -26,7 +26,7 @@ describe('========== Number ==========', () => {
       t: 'bigint',
       str: {
         sql: 'bigint',
-        joi: 'Joi.number().integer()',
+        joi: 'joi.number().integer()',
         swg: 'type: \'integer\',\nformat: \'int64\'',
       },
     })
@@ -36,7 +36,7 @@ describe('========== Number ==========', () => {
       t: 'float',
       str: {
         sql: 'real',
-        joi: 'Joi.number().precision()',
+        joi: 'joi.number().precision()',
         swg: 'type: \'number\',\nformat: \'float\'',
       },
     })
@@ -46,7 +46,7 @@ describe('========== Number ==========', () => {
       t: 'double',
       str: {
         sql: 'double precision',
-        joi: 'Joi.number().precision()',
+        joi: 'joi.number().precision()',
         swg: 'type: \'number\',\nformat: \'double\'',
       },
     })
@@ -56,7 +56,7 @@ describe('========== Number ==========', () => {
   //     t: 'numeric',
   //     str: {
   //       sql: 'numeric#numericParameters#',
-  //       joi: 'Joi.number().precision(#scaleValue#)',
+  //       joi: 'joi.number().precision(#scaleValue#)',
   //       swg: 'type: \'number\',\nformat: \'double\'',
   //     },
   //   })
@@ -66,7 +66,7 @@ describe('========== Number ==========', () => {
       t: 'money',
       str: {
         sql: 'money',
-        joi: 'Joi.number().precision(2)',
+        joi: 'joi.number().precision(2)',
         swg: 'type: \'number\',\nformat: \'double\'',
       },
     })
@@ -76,7 +76,7 @@ describe('========== Number ==========', () => {
       t: 'timestamp',
       str: {
         sql: 'timestamp',
-        joi: 'Joi.date().timestamp()',
+        joi: 'joi.date().timestamp()',
         swg: 'type: \'integer\',\nformat: \'int64\'',
       },
     })

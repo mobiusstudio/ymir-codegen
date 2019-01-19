@@ -4,7 +4,9 @@ const schemaName = joi.string().required()
 const tableName = joi.string().required()
 
 export const schemaRules = {
-  column: joi.object().keys({
+  schemaName,
+  tableName,
+  column: {
     schemaName,
     tableName,
     type: joi.string().required(),
@@ -18,15 +20,15 @@ export const schemaRules = {
       joi.boolean(),
       joi.array(),
     ]),
-  }),
-  table: joi.object().keys({
+  },
+  table: {
     schemaName,
     tableName,
     pkeyIndex: joi.number().integer().min(0),
     columns: joi.array(),
-  }),
-  schema: joi.object().keys({
+  },
+  schema: {
     schemaName,
     tables: joi.array(),
-  }),
+  },
 }
