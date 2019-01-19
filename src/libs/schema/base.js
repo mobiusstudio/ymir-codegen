@@ -33,6 +33,7 @@ export class ColumnBase {
       this.required = required
       this.default = def
     } else {
+      console.log(result.error)
       throw new Error('Invalid column data')
     }
   }
@@ -57,6 +58,7 @@ export class TableBase {
       this.pkeyIndex = pkeyIndex
       this.columns = columns
     } else {
+      console.log(result.error)
       throw new Error('Invalid table data')
     }
   }
@@ -75,6 +77,7 @@ export class SchemaBase {
       this.schemaName = schemaName
       this.tables = tables
     } else {
+      console.log(result.error)
       throw new Error('Invalid schema data')
     }
   }
