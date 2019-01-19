@@ -2,23 +2,26 @@
 export const template = {}
 
 template.schema =
-`import { DatabaseTable, Column, ColumnArray } from './core'
+`import { DatabaseTable } from './core'
 
 #tablesCode#
 `
 
-
 template.table =
 `export class #TableName# extends DatabaseTable {
   constructor() {
-    super('#schemaName#', '#tableName#')
-    this.columns = new ColumnArray([
+    super({
+      schemaName: '#schemaName#',
+      tableName: '#tableName#',
+      pkeyIndex: #pkeyIndex#,
+      columns: [
 #columnsCode#
-    ], this.tableName)
+      ],
+    })
   }
 }`
 
 template.column =
-`      new Column({
-        #propsCode#
-      }),`
+`        {
+          #propsCode#
+        },`
