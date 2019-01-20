@@ -1,1 +1,1 @@
-export * as baseSchema from './base'
+export * from './base'
