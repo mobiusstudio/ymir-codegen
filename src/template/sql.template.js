@@ -48,4 +48,11 @@ CREATE TABLE "#schemaName#".#tableName#
 )
 WITH (
   OIDS=FALSE
-);`
+);
+
+CREATE TRIGGER last_updated
+  BEFORE UPDATE
+  ON "#schemaName#".#tableName#
+  FOR EACH ROW
+  EXECUTE PROCEDURE update_timestamp();
+`

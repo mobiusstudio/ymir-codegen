@@ -29,8 +29,8 @@ const snakeCaseSchema = (schema) => {
 
 const timeCode = (createTime = true, lastUpdateTime = true) => {
   const arr = []
-  if (createTime) arr.push('create_time bigint DEFAULT unix_now()')
-  if (lastUpdateTime) arr.push('last_update_time bigint DEFAULT unix_now()')
+  if (createTime) arr.push('created bigint DEFAULT unix_now()')
+  if (lastUpdateTime) arr.push('last_updated bigint DEFAULT unix_now()')
   return arr.join(',\n  ').concat(',')
 }
 
@@ -91,7 +91,7 @@ const tablesCode = (tables) => {
   tables.forEach((table) => {
     arr.push(tableCode(table))
   })
-  return arr.join('\n\n')
+  return arr.join('\n')
 }
 
 export const sqlCode = (schema) => {
