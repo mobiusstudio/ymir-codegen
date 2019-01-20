@@ -7,9 +7,9 @@ const writeFile = ({ buffer, path, filename }) => {
 }
 
 export const generate = ({ suffix, outDir, schemaList, schemaCode = () => {} }) => {
-  schemaList.forEach(schema => (writeFile({
+  schemaList.forEach((schema, index) => (writeFile({
     buffer: schemaCode(schema),
     path: outDir,
-    filename: `${schema.schemaName}${suffix}`,
+    filename: `${suffix === '.sql' ? `0${index}.` : ''}${schema.schemaName}${suffix}`,
   })))
 }

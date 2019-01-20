@@ -9,8 +9,8 @@ export const schemaRules = {
   column: {
     schemaName,
     tableName,
-    type: joi.string().required().allow(''),
-    name: joi.string().required().allow(''),
+    type: joi.string().required().allow(null),
+    name: joi.string().required().allow(null),
     alias: joi.string().allow(null),
     foreign: joi.alternatives().try(
       joi.array().min(1).max(3).items(joi.string()),

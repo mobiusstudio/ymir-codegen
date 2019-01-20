@@ -59,10 +59,9 @@ const pkeyCode = (pkey) => {
 const columnCode = (column) => {
   const { schemaName, type, name, foreign, default: def, required } = column
   const arr = []
-  if (name && typeof name === 'string') arr.push(name)
-  else throw new Error('Invalid column name')
+  if (name) arr.push(name)
   const req = required === true || required === 'true' || required === 1
-  arr.push(T.get(type).sql({ req, def }))
+  if (type) arr.push(T.get(type).sql({ req, def }))
   if (foreign) arr.push(`REFERENCES ${foreignCode(foreign, schemaName)}`)
   return arr.join(' ')
 }
