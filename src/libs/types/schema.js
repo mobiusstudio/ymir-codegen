@@ -13,7 +13,7 @@ export const schemaRules = {
     name: joi.string().required().allow(''),
     alias: joi.string().allow(null),
     foreign: joi.alternatives().try(
-      joi.array().min(1).max(2).items(joi.string()),
+      joi.array().min(1).max(3).items(joi.string()),
       joi.string(),
     ).allow(null),
     required: joi.boolean().allow(null),

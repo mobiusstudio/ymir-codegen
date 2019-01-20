@@ -29,15 +29,17 @@ const snakeCaseSchema = (schema) => {
 
 const timeCode = (createTime = true, lastUpdateTime = true) => {
   const arr = []
-  if (createTime) arr.push('create_time timestamp DEFAULT unix_now()')
-  if (lastUpdateTime) arr.push('last_update_time timestamp DEFAULT unix_now()')
-  return arr.join(',\n  ')
+  if (createTime) arr.push('create_time bigint DEFAULT unix_now()')
+  if (lastUpdateTime) arr.push('last_update_time bigint DEFAULT unix_now()')
+  return arr.join(',\n  ').concat(',')
 }
 
-const foreignCode = (foreign) => {
-  // console.log(foreign.split('.'))
-  const [schemaName, tableName] = foreign.split('.').map(i => snakeCase(i))
-  return `"${schemaName}".${tableName}`
+const foreignCode = (foreign, schemaName) => {
+  if (typeof foreign === 'string') return `"${schemaName}".${foreign}`
+  if (foreign.length === 1) return `"${schemaName}".${foreign[0]}`
+  if (foreign.length === 2) return `"${foreign[0]}".${foreign[1]}`
+  if (foreign.length === 3) return `"${foreign[0]}".${foreign[1]} (${foreign[2]})`
+  return null
 }
 
 
@@ -50,18 +52,18 @@ const pkeyCode = (pkey) => {
     case 'id-seq': arr.push(T.get(type).sql()); break
     default: arr.push(T.get(type).sql({ req: true, def })); break
   }
-  if (foreign && typeof foreign === 'string') arr.push(`REFERENCE ${foreignCode(foreign)}`)
-  return arr.join(' ')
+  if (foreign) arr.push(`REFERENCES ${foreignCode(foreign, schemaName)}`)
+  return arr.join(' ').concat(',')
 }
 
 const columnCode = (column) => {
-  const { type, name, foreign, default: def, required } = column
+  const { schemaName, type, name, foreign, default: def, required } = column
   const arr = []
   if (name && typeof name === 'string') arr.push(name)
   else throw new Error('Invalid column name')
   const req = required === true || required === 'true' || required === 1
   arr.push(T.get(type).sql({ req, def }))
-  if (foreign && typeof foreign === 'string') arr.push(`REFERENCE ${foreignCode(foreign)}`)
+  if (foreign) arr.push(`REFERENCES ${foreignCode(foreign, schemaName)}`)
   return arr.join(' ')
 }
 
@@ -70,7 +72,7 @@ const columnsCode = (columns) => {
   columns.forEach((column) => {
     arr.push(columnCode(column))
   })
-  return arr.join(',\n  ')
+  return arr.join(',\n  ').concat(',')
 }
 
 const tableCode = (table) => {

@@ -4,8 +4,8 @@ import { generate } from '../utils'
 
 const foreignCode = (foreign) => {
   if (typeof foreign === 'string') return `'${foreign}'`
-  if (foreign.length === 1) return `[${foreign[0]}]`
-  if (foreign.length === 2) return `[${foreign[0]}, ${foreign[1]}]`
+  if (foreign.length === 1) return `['${foreign[0]}']`
+  if (foreign.length === 2) return `['${foreign[0]}', '${foreign[1]}']`
   return null
 }
 
