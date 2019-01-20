@@ -1,4 +1,4 @@
-import { check } from './utils/check'
+import { check } from './utils'
 
 describe('========== Boolean ==========', () => {
   it('default', () => {

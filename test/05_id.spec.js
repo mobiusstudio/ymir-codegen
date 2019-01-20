@@ -1,5 +1,5 @@
 import { typeMap as T } from '../src/libs/types'
-import { check } from './utils/check'
+import { check } from './utils'
 
 describe('========== Id ==========', () => {
   it('default', () => {

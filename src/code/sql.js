@@ -1,7 +1,7 @@
 import { snakeCase, without, cloneDeep } from 'lodash'
 import { typeMap as T } from '../libs/types'
 import { template } from '../template/sql.template'
-import { generate } from '../utils'
+import { generate } from './generate'
 
 const snakeCaseSchema = (schema) => {
   const tempSchema = cloneDeep(schema)
@@ -94,9 +94,15 @@ const tablesCode = (tables) => {
   return arr.join('\n\n')
 }
 
-export const schemaCode = (schema) => {
+export const sqlCode = (schema) => {
   const { schemaName, tables } = snakeCaseSchema(schema)
   return template.schema.replace(/#schemaName#/g, schemaName).replace(/#tablesCode#/g, tablesCode(tables))
 }
 
-export const generateSql = ({ schemaList, outDir }) => (generate({ suffix: '.sql', outDir, schemaList, schemaCode }))
+export const generateSql = ({ schemaList, outDir }) => (generate({
+  suffix:
+  '.sql',
+  outDir,
+  schemaList,
+  code: sqlCode,
+}))
