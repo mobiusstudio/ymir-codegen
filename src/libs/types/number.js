@@ -4,35 +4,35 @@ import { Sql, Joi, Swg, Rul } from './base'
 
 export const number = {
   default: {
-    sql: ({ req, def }) => new Sql('DOUBLE PRECISION').tostring({ req, def }),
+    sql: ({ req, def }) => new Sql('double precision').tostring({ req, def }),
     swg: ({ req, def }) => new Swg(`type: 'number'`).tostring({ req, def }),
     joi: ({ req, def }) => new Joi('joi.number()').tostring({ req, def }),
     rul: ({ req, def }) => new Rul(joi.number()).torule({ req, def }),
   },
 
   int: {
-    sql: ({ req, def }) => new Sql('INTEGER').tostring({ req, def }),
+    sql: ({ req, def }) => new Sql('integer').tostring({ req, def }),
     swg: ({ req, def }) => new Swg(`type: 'integer',\nformat: 'int32'`).tostring({ req, def }),
     joi: ({ req, def }) => new Joi('joi.number().integer()').tostring({ req, def }),
     rul: ({ req, def }) => new Rul(joi.number().integer()).torule({ req, def }),
   },
 
   bigint: {
-    sql: ({ req, def }) => new Sql('BIGINT').tostring({ req, def }),
+    sql: ({ req, def }) => new Sql('bigint').tostring({ req, def }),
     swg: ({ req, def }) => new Swg(`type: 'integer',\nformat: 'int64'`).tostring({ req, def }),
     joi: ({ req, def }) => new Joi('joi.number().integer()').tostring({ req, def }),
     rul: ({ req, def }) => new Rul(joi.number().integer()).torule({ req, def }),
   },
 
   float: {
-    sql: ({ req, def }) => new Sql('REAL').tostring({ req, def }),
+    sql: ({ req, def }) => new Sql('real').tostring({ req, def }),
     swg: ({ req, def }) => new Swg(`type: 'number',\nformat: 'float'`).tostring({ req, def }),
     joi: ({ req, def }) => new Joi('joi.number().precision()').tostring({ req, def }),
     rul: ({ req, def }) => new Rul(joi.number().precision()).torule({ req, def }),
   },
 
   double: {
-    sql: ({ req, def }) => new Sql('DOUBLE PRECISION').tostring({ req, def }),
+    sql: ({ req, def }) => new Sql('double precision').tostring({ req, def }),
     swg: ({ req, def }) => new Swg(`type: 'number',\nformat: 'double'`).tostring({ req, def }),
     joi: ({ req, def }) => new Joi('joi.number().precision()').tostring({ req, def }),
     rul: ({ req, def }) => new Rul(joi.number().precision()).torule({ req, def }),
@@ -46,14 +46,14 @@ export const number = {
   // },
 
   money: {
-    sql: ({ req, def }) => new Sql('MONEY').tostring({ req, def }),
+    sql: ({ req, def }) => new Sql('money').tostring({ req, def }),
     swg: ({ req, def }) => new Swg(`type: 'number',\nformat: 'double'`).tostring({ req, def }),
     joi: ({ req, def }) => new Joi('joi.number().precision(2)').tostring({ req, def }),
     rul: ({ req, def }) => new Rul(joi.number().precision(2)).torule({ req, def }),
   },
 
   timestamp: {
-    sql: ({ req, def }) => new Sql('BIGINT').tostring({ req, def }),
+    sql: ({ req, def }) => new Sql('bigint').tostring({ req, def }),
     swg: ({ req, def }) => new Swg(`type: 'integer',\nformat: 'int64'`).tostring({ req, def }),
     joi: ({ req, def }) => new Joi('joi.date().timestamp()').tostring({ req, def }),
     rul: ({ req, def }) => new Rul(joi.date().timestamp()).torule({ req, def }),

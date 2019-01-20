@@ -75,7 +75,7 @@ describe('========== Number ==========', () => {
     check({
       t: 'timestamp',
       str: {
-        sql: 'timestamp',
+        sql: 'bigint',
         joi: 'joi.date().timestamp()',
         swg: 'type: \'integer\',\nformat: \'int64\'',
       },
