@@ -74,3 +74,15 @@ export class Joi {
     return this.joi
   }
 }
+
+export class Swg {
+  constructor(swg) {
+    this.swg = swg
+  }
+
+  toinstance = ({ req, def }) => {
+    if (req === true || req === 'true' || req === 1) this.swg.required = true
+    if (def !== undefined) this.swg.default = def
+    return this.swg
+  }
+}
