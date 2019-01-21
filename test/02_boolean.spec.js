@@ -7,7 +7,7 @@ describe('========== Boolean ==========', () => {
       str: {
         sql: 'boolean',
         joi: 'joi.boolean()',
-        swg: 'type: \'boolean\'',
+        swt: 'type: \'boolean\'',
       },
     })
   })

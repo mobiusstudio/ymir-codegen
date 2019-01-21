@@ -8,7 +8,7 @@ describe('========== Id ==========', () => {
       str: {
         sql: 'bigint',
         joi: 'joi.number().integer().greater(100000000000000)',
-        swg: 'type: \'integer\',\nformat: \'int64\'',
+        swt: 'type: \'integer\',\nformat: \'int64\'',
       },
     })
   })
@@ -17,7 +17,7 @@ describe('========== Id ==========', () => {
       t: 'id-auto',
       str: {
         joi: 'joi.number().integer().greater(100000000000000)',
-        swg: 'type: \'integer\',\nformat: \'int64\'',
+        swt: 'type: \'integer\',\nformat: \'int64\'',
       },
     })
     T.get('id-auto').sql('schemaName').should.equal('bigint NOT NULL DEFAULT "schemaName".schemaName_id()')
@@ -27,7 +27,7 @@ describe('========== Id ==========', () => {
       t: 'id-seq',
       str: {
         joi: 'joi.number().integer()',
-        swg: 'type: \'integer\',\nformat: \'int32\'',
+        swt: 'type: \'integer\',\nformat: \'int32\'',
       },
     })
     T.get('id-seq').sql().should.equal('serial')

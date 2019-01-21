@@ -52,7 +52,7 @@ export class Joi extends Type {
   }
 }
 
-export class Swg extends Type {
+export class Swt extends Type {
   constructor(str) {
     super({
       str,

@@ -7,7 +7,7 @@ describe('========== Number ==========', () => {
       str: {
         sql: 'double precision',
         joi: 'joi.number()',
-        swg: 'type: \'number\'',
+        swt: 'type: \'number\'',
       },
     })
   })
@@ -17,7 +17,7 @@ describe('========== Number ==========', () => {
       str: {
         sql: 'integer',
         joi: 'joi.number().integer()',
-        swg: 'type: \'integer\',\nformat: \'int32\'',
+        swt: 'type: \'integer\',\nformat: \'int32\'',
       },
     })
   })
@@ -27,7 +27,7 @@ describe('========== Number ==========', () => {
       str: {
         sql: 'bigint',
         joi: 'joi.number().integer()',
-        swg: 'type: \'integer\',\nformat: \'int64\'',
+        swt: 'type: \'integer\',\nformat: \'int64\'',
       },
     })
   })
@@ -37,7 +37,7 @@ describe('========== Number ==========', () => {
       str: {
         sql: 'real',
         joi: 'joi.number().precision()',
-        swg: 'type: \'number\',\nformat: \'float\'',
+        swt: 'type: \'number\',\nformat: \'float\'',
       },
     })
   })
@@ -47,7 +47,7 @@ describe('========== Number ==========', () => {
       str: {
         sql: 'double precision',
         joi: 'joi.number().precision()',
-        swg: 'type: \'number\',\nformat: \'double\'',
+        swt: 'type: \'number\',\nformat: \'double\'',
       },
     })
   })
@@ -57,7 +57,7 @@ describe('========== Number ==========', () => {
   //     str: {
   //       sql: 'numeric#numericParameters#',
   //       joi: 'joi.number().precision(#scaleValue#)',
-  //       swg: 'type: \'number\',\nformat: \'double\'',
+  //       swt: 'type: \'number\',\nformat: \'double\'',
   //     },
   //   })
   // })
@@ -67,7 +67,7 @@ describe('========== Number ==========', () => {
       str: {
         sql: 'money',
         joi: 'joi.number().precision(2)',
-        swg: 'type: \'number\',\nformat: \'double\'',
+        swt: 'type: \'number\',\nformat: \'double\'',
       },
     })
   })
@@ -77,7 +77,7 @@ describe('========== Number ==========', () => {
       str: {
         sql: 'bigint',
         joi: 'joi.date().timestamp()',
-        swg: 'type: \'integer\',\nformat: \'int64\'',
+        swt: 'type: \'integer\',\nformat: \'int64\'',
       },
     })
   })

@@ -7,7 +7,7 @@ describe('========== String ==========', () => {
       str: {
         sql: 'varchar',
         joi: 'joi.string()',
-        swg: 'type: \'string\'',
+        swt: 'type: \'string\'',
       },
     })
   })
@@ -17,7 +17,7 @@ describe('========== String ==========', () => {
   //     str: {
   //       sql: 'varchar(#maxValue#)',
   //       joi: 'joi.string().max(#maxValue#).min(#minValue#)',
-  //       swg: 'type: \'string\',\nmaxLength: #maxValue#,\nminLength: #minValue#',
+  //       swt: 'type: \'string\',\nmaxLength: #maxValue#,\nminLength: #minValue#',
   //     },
   //   })
   // })
@@ -27,7 +27,7 @@ describe('========== String ==========', () => {
   //     str: {
   //       sql: 'varchar',
   //       joi: 'joi.string().regex(/#patternValue#/)',
-  //       swg: 'type: \'string\',\npattern: \'#patternValue#\'',
+  //       swt: 'type: \'string\',\npattern: \'#patternValue#\'',
   //     },
   //   })
   // })
@@ -37,7 +37,7 @@ describe('========== String ==========', () => {
       str: {
         sql: 'varchar',
         joi: 'joi.string().min(6)',
-        swg: 'type: \'string\',\nminLength: 6',
+        swt: 'type: \'string\',\nminLength: 6',
       },
     })
   })
@@ -47,7 +47,7 @@ describe('========== String ==========', () => {
       str: {
         sql: 'varchar',
         joi: 'joi.string().email()',
-        swg: 'type: \'string\',\nformat: \'email\'',
+        swt: 'type: \'string\',\nformat: \'email\'',
       },
     })
   })
