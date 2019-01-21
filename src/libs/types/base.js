@@ -63,14 +63,14 @@ export class Swt extends Type {
   }
 }
 
-export class Rul {
-  constructor(rul) {
-    this.rul = rul
+export class Joi {
+  constructor(joi) {
+    this.joi = joi
   }
 
   torule = ({ req, def }) => {
-    if (req === true || req === 'true' || req === 1) this.rul = this.rul.required()
-    if (def !== undefined) this.rul = this.rul.default(def)
-    return this.rul
+    if (req === true || req === 'true' || req === 1) this.joi = this.joi.required()
+    if (def !== undefined) this.joi = this.joi.default(def)
+    return this.joi
   }
 }
