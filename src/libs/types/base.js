@@ -41,7 +41,7 @@ export class Sql extends Type {
   static seqId = () => new Sql('serial').tostring({ req: false, def: null })
 }
 
-export class Joi extends Type {
+export class Jot extends Type {
   constructor(str) {
     super({
       str,

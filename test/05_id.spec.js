@@ -7,7 +7,7 @@ describe('========== Id ==========', () => {
       t: 'id',
       str: {
         sql: 'bigint',
-        joi: 'joi.number().integer().greater(100000000000000)',
+        jot: 'joi.number().integer().greater(100000000000000)',
         swt: 'type: \'integer\',\nformat: \'int64\'',
       },
     })
@@ -16,7 +16,7 @@ describe('========== Id ==========', () => {
     check({
       t: 'id-auto',
       str: {
-        joi: 'joi.number().integer().greater(100000000000000)',
+        jot: 'joi.number().integer().greater(100000000000000)',
         swt: 'type: \'integer\',\nformat: \'int64\'',
       },
     })
@@ -26,7 +26,7 @@ describe('========== Id ==========', () => {
     check({
       t: 'id-seq',
       str: {
-        joi: 'joi.number().integer()',
+        jot: 'joi.number().integer()',
         swt: 'type: \'integer\',\nformat: \'int32\'',
       },
     })

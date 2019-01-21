@@ -1,4 +1,4 @@
-export const outputSet = new Set(['sql', 'joi', 'swt'])
+export const outputSet = new Set(['sql', 'jot', 'swt'])
 
 export const resSet = new Set(['dir', 'def', 'req', 'dnr'])
 
@@ -10,7 +10,7 @@ export const attributes = {
     req: 'NOT NULL',
     sep: ' ',
   },
-  joi: {
+  jot: {
     def: 'default(#defaultValue#)',
     req: 'required()',
     sep: '.',
