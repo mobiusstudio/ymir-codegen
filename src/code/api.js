@@ -4,12 +4,17 @@ import { writeFile } from './generate'
 
 export const apiCode = {}
 
-apiCode.controllers = (table) => {
-  const { tableName, pkeyIndex, columns } = table
+apiCode.controllers = (table, isPrimary) => {
+  const { schemaName, tableName, pkeyIndex, columns } = table
+  const modelName = schemaName === tableName ? upperFirst(tableName) : `${upperFirst(schemaName)}${upperFirst(tableName)}`
+  const logName = schemaName === tableName ? tableName : `${schemaName} ${tableName}`
   const pkeyName = columns[pkeyIndex].name
+  const funcCode = isPrimary ? template.parentFunc : template.childFunc
   return template.controllers
-    .replace(/#tableName#/g, tableName)
-    .replace(/#TableName#/g, upperFirst(tableName))
+    .replace(/#funcCode#/g, funcCode)
+    .replace(/#modelName#/g, modelName)
+    .replace(/#logName#/g, logName)
+    .replace(/#pkey_name#/g, snakeCase(pkeyName))
     .replace(/#pkeyName#/g, pkeyName)
 }
 

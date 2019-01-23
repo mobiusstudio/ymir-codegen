@@ -8,7 +8,7 @@ template.schema =
 `
 
 template.table =
-`export class #TableName# extends DatabaseTable {
+`export class #modelName# extends DatabaseTable {
   constructor() {
     super({
       schemaName: '#schemaName#',

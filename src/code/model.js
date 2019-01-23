@@ -25,8 +25,9 @@ const columnsCode = columns => columns.map(column => columnCode(column)).join('\
 
 const tableCode = (table) => {
   const { schemaName, tableName, pkeyIndex, columns } = table
+  const modelName = schemaName === tableName ? upperFirst(tableName) : `${upperFirst(schemaName)}${upperFirst(tableName)}`
   return template.table
-    .replace(/#TableName#/g, upperFirst(tableName))
+    .replace(/#modelName#/g, modelName)
     .replace(/#schemaName#/g, schemaName)
     .replace(/#tableName#/g, tableName)
     .replace(/#pkeyIndex#/g, pkeyIndex)

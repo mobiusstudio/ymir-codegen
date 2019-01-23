@@ -88,7 +88,7 @@ route.post =
     parameters: [addContent],
   },`
 
-route.postById =
+route.postChild =
 `post: {
     operationId: 'add#TableName#',
     summary: 'Add new #tableName#',
@@ -129,7 +129,7 @@ template.childRoute =
 `
 routes[''] = {
   ${route.get}
-  ${route.postById}
+  ${route.postChild}
   ${route.patch}
   ${route.delete}
 }
