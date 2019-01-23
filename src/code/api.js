@@ -4,18 +4,20 @@ import { writeFile } from './generate'
 
 export const apiCode = {}
 
-apiCode.controllers = (table, isPrimary) => {
+apiCode.controllers = (table, isPrimary = false, ptable) => {
   const { schemaName, tableName, pkeyIndex, columns } = table
   const modelName = schemaName === tableName ? upperFirst(tableName) : `${upperFirst(schemaName)}${upperFirst(tableName)}`
   const logName = schemaName === tableName ? tableName : `${schemaName} ${tableName}`
   const pkeyName = columns[pkeyIndex].name
   const funcCode = isPrimary ? template.parentFunc : template.childFunc
+  const ptablePkey = isPrimary ? pkeyName : ptable.columns[ptable.pkeyIndex].name
   return template.controllers
     .replace(/#funcCode#/g, funcCode)
     .replace(/#modelName#/g, modelName)
     .replace(/#logName#/g, logName)
     .replace(/#pkey_name#/g, snakeCase(pkeyName))
     .replace(/#pkeyName#/g, pkeyName)
+    .replace(/#ptablePkey#/g, ptablePkey)
 }
 
 const propsCode = columns => ({
@@ -49,7 +51,7 @@ apiCode.path = (table, isPrimary = false, ptable) => {
   const pkeyName = columns[pkeyIndex].name
   const pkeyType = columns[pkeyIndex].type
   const ptablePkey = ptable.columns[ptable.pkeyIndex].name
-  const refName = schemaName === tableName ? upperFirst(tableName) : `${upperFirst(schemaName)}${upperFirst(tableName)}`
+  const modelName = schemaName === tableName ? upperFirst(tableName) : `${upperFirst(schemaName)}${upperFirst(tableName)}`
   const pagingCode = isPrimary ? 'contentType, pagesize, page, next, paging' : 'contentType'
   const pkeyCode = isPrimary ? template.parentPkey : template.childPkey
     .replace(/#parentKey#/g, snakeCase(ptablePkey))
@@ -58,12 +60,11 @@ apiCode.path = (table, isPrimary = false, ptable) => {
   const pathCode = isPrimary ? snakeCase(tableName) : `${snakeCase(ptable.tableName)}/{${snakeCase(ptablePkey)}}/${snakeCase(tableName)}`
   const tag = isPrimary ? upperFirst(tableName) : `${upperFirst(schemaName)}-${upperFirst(tableName)}`
   return template.path
-    .replace(/#refName#/g, refName)
     .replace(/#pagingCode#/g, pagingCode)
     .replace(/#pkeyCode#/g, pkeyCode)
     .replace(/#routeCode#/g, routeCode)
+    .replace(/#modelName#/g, modelName)
     .replace(/#tableName#/g, tableName)
-    .replace(/#TableName#/g, upperFirst(tableName))
     .replace(/#table_name#/g, snakeCase(tableName))
     .replace(/#pkeyName#/g, pkeyName)
     .replace(/#pkey_name#/g, snakeCase(pkeyName))

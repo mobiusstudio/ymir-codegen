@@ -34,7 +34,7 @@ func.get =
 `ctr.get#modelName# = async (req, res) => {
   try {
     const { #modelName# } = global.models
-    const #pkeyName# = req.swagger.params.#pkeyName#.value
+    const #pkeyName# = req.swagger.params.#ptablePkey#.value
     global.logger.trace('Get #logName#', #pkeyName#)
     const result = await new #modelName#().from().where\`#pkey_name# = \${#pkeyName#}\`.do()
     return res.json(result)
@@ -64,7 +64,7 @@ func.addChild =
   try {
     const { #modelName# } = global.models
     const data = req.swagger.params.data.value
-    const #pkeyName# = req.swagger.params.#pkeyName#.value
+    const #pkeyName# = req.swagger.params.#ptablePkey#.value
     global.logger.trace('Add #logName#', data)
     const result = await new #modelName#().add({
       data,
@@ -81,7 +81,7 @@ func.update =
   try {
     const { #modelName# } = global.models
     const data = req.swagger.params.data.value
-    const #pkeyName# = req.swagger.params.#pkeyName#.value
+    const #pkeyName# = req.swagger.params.#ptablePkey#.value
     global.logger.trace('Update #logName#', data)
     const result = await new #modelName#().update({
       data,
@@ -97,7 +97,7 @@ func.delete =
 `ctr.delete#modelName# = async (req, res) => {
   try {
     const { #modelName# } = global.models
-    const #pkeyName# = req.swagger.params.#pkeyName#.value
+    const #pkeyName# = req.swagger.params.#ptablePkey#.value
     global.logger.trace('Delete #logName#', #pkeyName#)
     const result = await new #modelName#().delete(#pkeyName#)
     return res.json(result)

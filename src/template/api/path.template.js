@@ -13,7 +13,7 @@ const addContent = {
   description: 'create #tableName# data',
   required: true,
   schema: {
-    $ref: '#/definitions/#refName#AddRequest',
+    $ref: '#/definitions/#modelName#AddRequest',
   },
 }
 
@@ -23,7 +23,7 @@ const updateContent = {
   description: 'update #tableName# data',
   required: true,
   schema: {
-    $ref: '#/definitions/#refName#UpdateRequest',
+    $ref: '#/definitions/#modelName#UpdateRequest',
   },
 }
 
@@ -66,7 +66,7 @@ const route = {}
 
 route.list =
 `get: {
-    operationId: 'get#TableName#List',
+    operationId: 'get#modelName#List',
     summary: 'Get #tableName# list',
     ...generalDescription,
     parameters: [pagesize, page, next, paging],
@@ -74,7 +74,7 @@ route.list =
 
 route.get =
 `get: {
-    operationId: 'get#TableName#',
+    operationId: 'get#modelName#',
     summary: 'Get #tableName# by #pkeyName#',
     ...generalDescription,
     parameters: [#pkeyName#],
@@ -82,7 +82,7 @@ route.get =
 
 route.post =
 `post: {
-    operationId: 'add#TableName#',
+    operationId: 'add#modelName#',
     summary: 'Add new #tableName#',
     ...generalDescription,
     parameters: [addContent],
@@ -90,7 +90,7 @@ route.post =
 
 route.postChild =
 `post: {
-    operationId: 'add#TableName#',
+    operationId: 'add#modelName#',
     summary: 'Add new #tableName#',
     ...generalDescription,
     parameters: [#pkeyName#, addContent],
@@ -98,7 +98,7 @@ route.postChild =
 
 route.patch =
 `patch: {
-    operationId: 'update#TableName#',
+    operationId: 'update#modelName#',
     summary: 'Update #tableName#',
     ...generalDescription,
     parameters: [#pkeyName#, updateContent],
@@ -106,7 +106,7 @@ route.patch =
 
 route.delete =
 `delete: {
-    operationId: 'delete#TableName#',
+    operationId: 'delete#modelName#',
     summary: 'Delete #tableName#',
     ...generalDescription,
     parameters: [#pkeyName#],
