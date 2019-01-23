@@ -36,7 +36,7 @@ func.get =
     const { #modelName# } = global.models
     const #pkeyName# = req.swagger.params.#pkeyName#.value
     global.logger.trace('Get #logName#', #pkeyName#)
-    const result = await new #modelName#().from().where\`#pkey_name# = \${#pkeyName#}\`.select().do()
+    const result = await new #modelName#().from().where\`#pkey_name# = \${#pkeyName#}\`.do()
     return res.json(result)
   } catch (error) {
     throw error
