@@ -1,7 +1,15 @@
-import path from 'path'
-import { generateSql, generateModel, generateApi } from '../src/code'
-import schemaList from '../ymir.config.json'
+import del from 'del'
+import { copy } from './copy'
+import { output } from './output'
 
-generateSql({ schemaList, outDir: path.join(__dirname, '../output/sql') })
-generateModel({ schemaList, outDir: path.join(__dirname, '../../ymir-models/test/mock/models') })
-generateApi({ schemaList, outDir: path.join(__dirname, '../../ymir-api/src/api') })
+const build = async (projectName = 'myProject') => {
+  console.log('cleanup...')
+  await del([`../${projectName}-models`, `../${projectName}-api`], { force: true })
+  console.log('copy...')
+  await copy(projectName)
+  console.log('output...')
+  await output(projectName)
+  console.log('finish build')
+}
+
+build()
