@@ -19,7 +19,7 @@ export const rename = async (modelName, apiName, dbName) => {
   await replace({
     files: [
       `${apiPath}/package.json`,
-      `${apiPath}/package-lock.json`,
+      // `${apiPath}/package-lock.json`,
       `${apiPath}/src/config/config.json.sample`,
       `${apiPath}/src/config/development.json`,
     ],

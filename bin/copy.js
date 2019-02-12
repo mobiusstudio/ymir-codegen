@@ -37,6 +37,7 @@ const copyModel = async (modelName) => {
 
 const copyApi = async (apiName) => {
   const exclude = [
+    'package-lock.json',
     '.vscode',
     'build/',
     'node_modules',
