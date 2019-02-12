@@ -1,30 +1,63 @@
 import Promise from 'bluebird'
-import path from 'path'
 
 const ncp = Promise.promisify(require('ncp'))
 
 const copyModel = async (modelName) => {
-  const ignoreMap = ['.vscode/', 'dist/', 'node_modules/']
+  const exclude = [
+    '.vscode',
+    'dist',
+    'node_modules',
+    'core/libs',
+    'src/database/patches/',
+    'test/',
+  ]
+  const include = [
+    'src/database/patches/00.base.sql',
+    // 'test/mock/models/core.js',
+    'test/config',
+    'test/utils',
+    'test/.eslintrc',
+    'test/00_global-hook.spec.js',
+  ]
   const folderPath = `../${modelName}-models`
   const options = {
-    filter: filename => ignoreMap.every(name => filename.indexOf(path.join('/ymir-models', name)) === -1),
+    filter: filename => exclude.every(excludePath => filename.indexOf(`/ymir-models/${excludePath}`) === -1),
   }
-  const cps = [
-    ncp('../ymir-models', folderPath, options),
-  ]
-  await Promise.all(cps)
+
+  // copy ymir-models
+  await ncp('../ymir-models', folderPath, options)
+
+  const cps = []
+  include.forEach(includePath => cps.push(ncp(`../ymir-models/${includePath}`, `${folderPath}/${includePath}`)))
+  await Promise.all(cps).catch(err => console.log(err))
+
+  // copy libs
+  await ncp('./src/libs', `${folderPath}/core/libs`)
 }
 
 const copyApi = async (apiName) => {
-  const ignoreMap = ['.vscode/', 'build/', 'node_modules/', 'logs/']
+  const exclude = [
+    '.vscode',
+    'build/',
+    'node_modules',
+    'logs/',
+    'src/libs',
+  ]
+  const include = []
   const folderPath = `../${apiName}-api`
   const options = {
-    filter: filename => ignoreMap.every(name => filename.indexOf(path.join('/ymir-api', name)) === -1),
+    filter: filename => exclude.every(excludePath => filename.indexOf(`/ymir-api/${excludePath}`) === -1),
   }
-  const cps = [
-    ncp('../ymir-api', folderPath, options),
-  ]
-  await Promise.all(cps)
+
+  // copy ymir-api
+  await ncp('../ymir-api', folderPath, options)
+
+  const cps = []
+  include.forEach(includePath => cps.push(ncp(`../ymir-api/${includePath}`, `${folderPath}/${includePath}`)))
+  await Promise.all(cps).catch(err => err)
+
+  // copy libs
+  await ncp('./src/libs', `${folderPath}/src/libs`)
 }
 
 export const copy = async (modelName, apiName) => {
