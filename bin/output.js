@@ -4,6 +4,6 @@ import schemaList from '../ymir.config.json'
 
 export const output = (modelName, apiName) => {
   generateSql({ schemaList, outDir: path.join(__dirname, `../../${modelName}-models/src/database/patches`) })
-  generateModel({ schemaList, outDir: path.join(__dirname, `../../${modelName}-models/test/mock/models`) })
+  generateModel({ schemaList, outDir: path.join(__dirname, `../../${modelName}-models/src/models`) })
   generateApi({ schemaList, outDir: path.join(__dirname, `../../${apiName}-api/src/api`) })
 }

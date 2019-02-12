@@ -1,6 +1,6 @@
 import { upperFirst } from 'lodash'
 import { template } from '../template/model.template'
-import { generate } from './generate'
+import { generate, writeFile } from './generate'
 
 const foreignCode = (foreign) => {
   if (typeof foreign === 'string') return `'${foreign}'`
@@ -41,9 +41,25 @@ export const modelCode = (schema) => {
   return template.schema.replace(/#tablesCode#/g, tablesCode(tables))
 }
 
-export const generateModel = ({ schemaList, outDir }) => (generate({
-  suffix: '.js',
-  outDir,
-  schemaList,
-  code: modelCode,
-}))
+const indexCode = (schemaList) => {
+  const codeArray = []
+  schemaList.forEach((schema) => {
+    const code = `export * from './${schema.schemaName}'`
+    codeArray.push(code)
+  })
+  return codeArray.join('\n')
+}
+
+export const generateModel = ({ schemaList, outDir }) => {
+  generate({
+    suffix: '.js',
+    outDir,
+    schemaList,
+    code: modelCode,
+  })
+  writeFile({
+    buffer: indexCode(schemaList),
+    path: outDir,
+    filename: 'index.js',
+  })
+}
