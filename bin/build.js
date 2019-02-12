@@ -1,15 +1,15 @@
-import del from 'del'
+import { clean } from './clean'
 import { copy } from './copy'
 import { output } from './output'
 
-const build = async (projectName = 'myProject') => {
+const build = async (modelName, apiName) => {
   console.log('cleanup...')
-  await del([`../${projectName}-models`, `../${projectName}-api`], { force: true })
+  await clean(modelName, apiName)
   console.log('copy...')
-  await copy(projectName)
+  await copy(modelName, apiName)
   console.log('output...')
-  await output(projectName)
+  await output(modelName, apiName)
   console.log('finish build')
 }
 
-build()
+build('myproject', 'myproject')
