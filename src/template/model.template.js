@@ -2,7 +2,7 @@
 export const template = {}
 
 template.schema =
-`import { DatabaseTable } from './core'
+`import { DatabaseTable } from '../../core/model'
 
 #tablesCode#
 `
