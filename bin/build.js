@@ -16,4 +16,12 @@ const build = async (modelName, apiName, dbName) => {
   console.log('finish build')
 }
 
-build('myproject', 'myproject', 'mydatabase')
+const commander = () => {
+  const args = process.argv.slice(2)
+  if (!args.length) build('myproject', 'myproject', 'mydatabase')
+  if (args.length === 1) build(args[0], args[0], args[0])
+  if (args.length === 2) build(args[0], args[1], args[0])
+  if (args.length === 3) build(args[0], args[1], args[2])
+}
+
+commander()
