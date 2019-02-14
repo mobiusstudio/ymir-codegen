@@ -1,4 +1,4 @@
-import { typeMap as T } from '../../src/libs/types'
+import { typeMap as T } from 'chaos-library'
 import { resSet, outputSet, specSet } from '../libs/type'
 import { tostring } from './tostring'
 

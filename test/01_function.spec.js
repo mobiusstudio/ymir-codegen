@@ -1,4 +1,4 @@
-import { find, types, typeMap as T } from '../src/libs/types'
+import { find, types, typeMap as T } from 'chaos-library'
 import { outputSet, attributes, specSet } from './libs/type'
 
 describe('========== Function ==========', () => {

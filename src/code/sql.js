@@ -1,5 +1,5 @@
 import { snakeCase, without, cloneDeep } from 'lodash'
-import { typeMap as T } from '../libs/types'
+import { typeMap as T } from 'chaos-library'
 import { template } from '../template/sql.template'
 import { generate } from './generate'
 
