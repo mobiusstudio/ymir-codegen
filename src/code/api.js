@@ -5,6 +5,17 @@ import { writeFile } from './generate'
 
 export const apiCode = {}
 
+const indexCode = tables => ({
+  swagger: {
+    import: tables.map(table => `import ${table.tableName} from './${table.tableName}'`).join('\n'),
+    obj: tables.map(table => `  ${table.tableName}`).join(',\n'),
+  },
+  controllers: {
+    import: tables.map(table => `import { ${table.tableName} } from './${table.tableName}'`).join('\n'),
+    obj: tables.map(table => `  ...${table.tableName}`).join(',\n'),
+  },
+})
+
 apiCode.controllers = (table) => {
   const { tableName } = table
   return template.controllers
@@ -47,12 +58,15 @@ apiCode.path = (table) => {
 
 export const generateApi = ({ schemaList, outDir }) => {
   const apiMap = ['path', 'definitions']
+  const tableList = []
   schemaList.forEach((schema) => {
-    const { schemaName, tables } = schema
+    const { tables } = schema
     const ptable = tables[0]
     tables.forEach((table, tindex) => {
       const { tableName } = table
-      const filename = schemaName === tableName ? tableName : `${schemaName}-${tableName}`
+      // const filename = schemaName === tableName ? tableName : `${schemaName}-${tableName}`
+      const filename = tableName
+      tableList.push(table)
       // path & definitions
       apiMap.forEach((i) => {
         writeFile({
@@ -66,22 +80,28 @@ export const generateApi = ({ schemaList, outDir }) => {
         path: `${outDir}/api/${filename}/definitions`,
         filename: 'properties.js',
       })
-      writeFile({
-        buffer: template.index,
-        path: `${outDir}/api/${filename}`,
-        filename: 'index.js',
-      })
       // controllers
       writeFile({
         buffer: apiCode.controllers(table),
         path: `${outDir}/controllers`,
         filename: `${filename}.js`,
       })
-      writeFile({
-        buffer: template.controllerIndex,
-        path: `${outDir}/controllers`,
-        filename: 'index.js',
-      })
     })
+  })
+  // swagger index
+  writeFile({
+    buffer: template.swaggerIndex
+      .replace(/#importCode#/g, indexCode(tableList).swagger.import)
+      .replace(/#objCode#/g, indexCode(tableList).swagger.obj),
+    path: `${outDir}/api`,
+    filename: 'index.js',
+  })
+  // controller index
+  writeFile({
+    buffer: template.controllerIndex
+      .replace(/#importCode#/g, indexCode(tableList).controllers.import)
+      .replace(/#objCode#/g, indexCode(tableList).controllers.obj),
+    path: `${outDir}/controllers`,
+    filename: 'index.js',
   })
 }

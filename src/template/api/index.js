@@ -9,16 +9,6 @@ export const template = {
   ...controllers,
 }
 
-template.tableIndex =
-`import { pth } from './path'
-import { def } from './definitions'
-
-export default {
-  pth,
-  def,
-}
-`
-
 template.swaggerIndex =
 `import { addPaths, addDefinitions } from '../swagger'
 import { addControllers } from '../controllers'
