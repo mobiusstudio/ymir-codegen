@@ -31,7 +31,8 @@ const propsCode = columns => ({
     .replace(/#columnName#/g, column.name)
     .replace(/#columnType#/g, T.get(column.type).swt({ req: column.required, def: column.default }).concat(','))
     .replace(/#columnDescription#/g, column.description || `${column.tableName} ${column.name}`))
-    .join('\n\n'),
+    .join('\n\n')
+    .concat('\n'),
 })
 
 apiCode.properties = (table) => {
@@ -79,6 +80,11 @@ export const generateApi = ({ schemaList, outDir }) => {
         buffer: apiCode.properties(table),
         path: `${outDir}/api/${filename}/definitions`,
         filename: 'properties.js',
+      })
+      writeFile({
+        buffer: template.apiIndex,
+        path: `${outDir}/api/${filename}`,
+        filename: 'index.js',
       })
       // controllers
       writeFile({
