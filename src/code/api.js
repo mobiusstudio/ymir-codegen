@@ -1,101 +1,85 @@
-import { upperFirst, snakeCase, kebabCase } from 'lodash'
+import { upperFirst } from 'lodash'
+import { typeMap as T } from 'chaos-library'
 import { template } from '../template/api'
 import { writeFile } from './generate'
 
 export const apiCode = {}
 
-apiCode.controllers = (table, isPrimary = false, ptable) => {
-  const { schemaName, tableName, pkeyIndex, columns } = table
-  const modelName = schemaName === tableName ? upperFirst(tableName) : `${upperFirst(schemaName)}${upperFirst(tableName)}`
-  const logName = schemaName === tableName ? tableName : `${schemaName} ${tableName}`
-  const pkeyName = columns[pkeyIndex].name
-  const funcCode = isPrimary ? template.parentFunc : template.childFunc
-  const ptablePkey = isPrimary ? pkeyName : ptable.columns[ptable.pkeyIndex].name
+apiCode.controllers = (table) => {
+  const { tableName } = table
   return template.controllers
-    .replace(/#funcCode#/g, funcCode)
-    .replace(/#modelName#/g, modelName)
-    .replace(/#logName#/g, logName)
-    .replace(/#pkey_name#/g, snakeCase(pkeyName))
-    .replace(/#pkeyName#/g, pkeyName)
-    .replace(/#ptablePkey#/g, ptablePkey)
+    .replace(/#tableName#/g, tableName)
+    .replace(/#TableName#/g, `${upperFirst(tableName)}`)
+    .replace(/#TableControllers#/g, `${upperFirst(tableName)}Controllers`)
 }
 
 const propsCode = columns => ({
   import: columns.map(column => column.name).join(', '),
-  definition: columns.map(column => column.name).join(',\n    ').concat(','),
+  body: columns.map(column => column.name).join(',\n  ').concat(','),
   properties: columns.map(column => template.property
     .replace(/#columnName#/g, column.name)
-    .replace(/#columnType#/g, column.type)
+    .replace(/#columnType#/g, T.get(column.type).swt({ req: column.required, def: column.default }).concat(','))
     .replace(/#columnDescription#/g, column.description || `${column.tableName} ${column.name}`))
     .join('\n\n'),
 })
 
 apiCode.properties = (table) => {
   const { columns } = table
-  return template.properties.replace(/#propsCode#/g, propsCode(columns).properties)
+  return propsCode(columns).properties
 }
 
 apiCode.definitions = (table) => {
-  const { schemaName, tableName, columns } = table
-  const refName = schemaName === tableName ? upperFirst(tableName) : `${upperFirst(schemaName)}${upperFirst(tableName)}`
+  const { tableName, columns } = table
   return template.definitions
-    .replace(/#refName#/g, refName)
     .replace(/#tableName#/g, tableName)
-    .replace(/#TableName#/g, upperFirst(tableName))
+    .replace(/#TableDefinitions#/g, `${upperFirst(tableName)}Definitions`)
     .replace(/#propsImport#/g, propsCode(columns).import)
-    .replace(/#propsName#/g, propsCode(columns).definition)
+    .replace(/#propsName#/g, propsCode(columns).body)
 }
 
-apiCode.path = (table, isPrimary = false, ptable) => {
-  const { schemaName, tableName, pkeyIndex, columns } = table
-  const pkeyName = columns[pkeyIndex].name
-  const pkeyType = columns[pkeyIndex].type
-  const ptablePkey = ptable.columns[ptable.pkeyIndex].name
-  const modelName = schemaName === tableName ? upperFirst(tableName) : `${upperFirst(schemaName)}${upperFirst(tableName)}`
-  const pagingCode = isPrimary ? 'contentType, pagesize, page, next, paging' : 'contentType'
-  const pkeyCode = isPrimary ? template.parentPkey : template.childPkey
-    .replace(/#parentKey#/g, snakeCase(ptablePkey))
-    .replace(/#parentFolder#/g, kebabCase(ptable.tableName))
-  const routeCode = isPrimary ? template.parentRoute : template.childRoute
-  const pathCode = isPrimary ? snakeCase(tableName) : `${snakeCase(ptable.tableName)}/{${snakeCase(ptablePkey)}}/${snakeCase(tableName)}`
-  const tag = isPrimary ? upperFirst(tableName) : `${upperFirst(schemaName)}-${upperFirst(tableName)}`
+apiCode.path = (table) => {
+  const { tableName } = table
   return template.path
-    .replace(/#pagingCode#/g, pagingCode)
-    .replace(/#pkeyCode#/g, pkeyCode)
-    .replace(/#routeCode#/g, routeCode)
-    .replace(/#modelName#/g, modelName)
+    .replace(/#TableRoutes#/g, `${upperFirst(tableName)}Routes`)
+    .replace(/#TableName#/g, `${upperFirst(tableName)}`)
     .replace(/#tableName#/g, tableName)
-    .replace(/#table_name#/g, snakeCase(tableName))
-    .replace(/#pkeyName#/g, pkeyName)
-    .replace(/#pkey_name#/g, snakeCase(pkeyName))
-    .replace(/#pkeyType#/g, pkeyType)
-    .replace(/#pathCode#/g, pathCode)
-    .replace(/#Tag#/g, tag)
 }
 
 export const generateApi = ({ schemaList, outDir }) => {
-  const apiMap = ['path', 'definitions', 'controllers']
+  const apiMap = ['path', 'definitions']
   schemaList.forEach((schema) => {
     const { schemaName, tables } = schema
     const ptable = tables[0]
     tables.forEach((table, tindex) => {
       const { tableName } = table
-      const folderName = schemaName === tableName ? tableName : `${schemaName}-${tableName}`
+      const filename = schemaName === tableName ? tableName : `${schemaName}-${tableName}`
+      // path & definitions
       apiMap.forEach((i) => {
         writeFile({
           buffer: apiCode[i](table, tindex === 0, ptable),
-          path: `${outDir}/${folderName}/${i}`,
+          path: `${outDir}/api/${filename}/${i}`,
           filename: 'index.js',
         })
       })
       writeFile({
         buffer: apiCode.properties(table),
-        path: `${outDir}/${folderName}/definitions`,
+        path: `${outDir}/api/${filename}/definitions`,
         filename: 'properties.js',
       })
       writeFile({
         buffer: template.index,
-        path: `${outDir}/${folderName}`,
+        path: `${outDir}/api/${filename}`,
+        filename: 'index.js',
+      })
+      // controllers
+      writeFile({
+        buffer: apiCode.controllers(table),
+        path: `${outDir}/controllers`,
+        filename: `${filename}.js`,
+      })
+      writeFile({
+        buffer: template.controllerIndex,
+        path: `${outDir}/controllers`,
         filename: 'index.js',
       })
     })
