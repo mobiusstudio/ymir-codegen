@@ -11,5 +11,5 @@ class #TableControllers# extends BaseControllers {
   }
 }
 
-export const task = new #TableControllers#()
+export const #tableName# = new #TableControllers#()
 `
