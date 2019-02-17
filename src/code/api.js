@@ -29,7 +29,7 @@ const propsCode = columns => ({
   body: columns.map(column => column.name).join(',\n  ').concat(','),
   properties: columns.map(column => template.property
     .replace(/#columnName#/g, column.name)
-    .replace(/#columnType#/g, T.get(column.type).swt({ req: column.required, def: column.default }).concat(','))
+    .replace(/#columnType#/g, T.get(column.type).swt({ req: false }).concat(','))
     .replace(/#columnDescription#/g, column.description || `${column.tableName} ${column.name}`))
     .join('\n\n')
     .concat('\n'),
