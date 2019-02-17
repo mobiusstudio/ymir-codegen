@@ -8,11 +8,11 @@ export const apiCode = {}
 const indexCode = tables => ({
   swagger: {
     import: tables.map(table => `import ${table.tableName} from './${table.tableName}'`).join('\n'),
-    obj: tables.map(table => `  ${table.tableName}`).join(',\n'),
+    obj: tables.map(table => `  ${table.tableName}`).join(',\n').concat(','),
   },
   controllers: {
     import: tables.map(table => `import { ${table.tableName} } from './${table.tableName}'`).join('\n'),
-    obj: tables.map(table => `  ...${table.tableName}`).join(',\n'),
+    obj: tables.map(table => `  ...${table.tableName}`).join(',\n').concat(','),
   },
 })
 

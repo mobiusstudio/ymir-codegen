@@ -5,13 +5,13 @@ template.definitions =
 `import { BaseDefinitions } from '../../../swagger'
 import { #propsImport# } from './properties'
 
-const body = {
+const requestBody = {
   #propsName#
 }
 
 class #TableDefinitions# extends BaseDefinitions {
   constructor() {
-    super('#tableName#', body)
+    super('#tableName#', requestBody)
   }
 }
 

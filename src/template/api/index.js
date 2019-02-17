@@ -21,7 +21,6 @@ export default {
 
 template.swaggerIndex =
 `import { addPaths, addDefinitions } from '../swagger'
-import { addControllers } from '../controllers'
 
 #importCode#
 
@@ -33,7 +32,6 @@ export const register = () => {
   Object.values(api).forEach((i) => {
     addPaths(i.pth)
     addDefinitions(i.def)
-    addControllers(i.ctr)
   })
 }
 `
@@ -58,5 +56,4 @@ export const controllers = Object.keys(ctrs).reduce((syncControllers, operationI
   }
   return newSC
 }, {})
-
 `
