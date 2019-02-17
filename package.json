@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx babel-node bin/build",
+    "build": "npx babel-node scripts/build",
     "test": "NODE_ENV=test mocha --require @babel/register"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "@babel/runtime": "^7.2.0",
     "bluebird": "^3.5.3",
-    "chaos-library": "0.0.1",
+    "chaos-library": "0.0.3",
     "del": "^3.0.0",
     "joi": "^14.3.1",
     "lodash": "^4.17.11",

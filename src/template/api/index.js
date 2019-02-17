@@ -9,23 +9,51 @@ export const template = {
   ...controllers,
 }
 
-template.index =
+template.apiIndex =
 `import { pth } from './path'
 import { def } from './definitions'
-import { ctr } from './controllers'
 
 export default {
   pth,
   def,
-  ctr,
 }
 `
 
-template.apiIndex =
-`
+template.swaggerIndex =
+`import { addPaths, addDefinitions } from '../swagger'
+
 #importCode#
 
 const api = {
 #objCode#
 }
+
+export const register = () => {
+  Object.values(api).forEach((i) => {
+    addPaths(i.pth)
+    addDefinitions(i.def)
+  })
+}
+`
+
+template.controllerIndex =
+`import isPromise from 'is-promise'
+
+#importCode#
+
+const ctrs = {
+#objCode#
+}
+
+export const controllers = Object.keys(ctrs).reduce((syncControllers, operationId) => {
+  const newSC = syncControllers
+  newSC[operationId] = (req, res, next) => {
+    const result = ctrs[operationId](req, res, next)
+    if (isPromise(result)) {
+      return result.catch(next)
+    }
+    return result
+  }
+  return newSC
+}, {})
 `

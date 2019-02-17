@@ -2,32 +2,24 @@
 export const template = {}
 
 template.definitions =
-`import { typeMap as T } from '../../../libs/types'
+`import { BaseDefinitions } from '../../../swagger'
 import { #propsImport# } from './properties'
 
-export const def = {}
+const requestBody = {
+  #propsName#
+}
 
-def.#refName#AddRequest = T.get('object').swg({
-  description: 'create #tableName# request',
-  properties: {
-    #propsName#
-  },
-})
+class #TableDefinitions# extends BaseDefinitions {
+  constructor() {
+    super('#tableName#', requestBody)
+  }
+}
 
-def.#refName#UpdateRequest = T.get('object').swg({
-  description: 'update #tableName# request',
-  properties: {
-    #propsName#
-  },
-})
+export const def = new #TableDefinitions#()
 `
 
-template.properties =
-`import { typeMap as T } from '../../../libs/types'
-
-#propsCode#
-`
 template.property =
-`export const #columnName# = T.get('#columnType#').swg({
+`export const #columnName# = {
   description: '#columnDescription#',
-})`
+  #columnType#
+}`
