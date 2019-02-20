@@ -4,6 +4,7 @@ const ncp = Promise.promisify(require('ncp'))
 
 const copyApi = async (projectName) => {
   const exclude = [
+    '.git',
     '.vscode',
     'build',
     'logs',
